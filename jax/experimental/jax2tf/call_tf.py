@@ -200,8 +200,7 @@ def _call_tf_impl(*args_jax_flat, args_treedef, func_tf, out_avals, **_):
       res_jax_platform = res_tf_platform.lower()
       if res_jax_platform in _DLPACK_PLATFORMS:
         res_dlpack = tf.experimental.dlpack.to_dlpack(res_tf)
-        return jax.dlpack.from_dlpack(
-            res_dlpack, backend=xla_bridge.get_backend(res_jax_platform))
+        return jax.dlpack.from_dlpack(res_dlpack)
 
     return jnp.asarray(np.asarray(res_tf))
 
